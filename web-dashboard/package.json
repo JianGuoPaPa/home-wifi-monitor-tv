@@ -1,7 +1,7 @@
 {
   "name": "home-wifi-monitor",
   "version": "0.1.0",
-  "description": "Local Wi-Fi device traffic monitor for Android TV and browser dashboards.",
+  "description": "家庭 Wi-Fi 设备用网监控 Android TV 看板，附带可选浏览器调试看板。",
   "license": "MIT",
   "type": "module",
   "scripts": {
