@@ -1,8 +1,8 @@
-# 家庭 Wi-Fi 电视看板 / Home Wi-Fi Monitor TV
+# 家庭 Wi-Fi 电视看板
+
+[中文](README.md) | [English](README.en.md)
 
 一个运行在 Android TV 上的家庭 Wi-Fi 设备用网监控看板。电视端可以直接登录小米 / MiWiFi 兼容路由器，读取在线设备、实时速率、WAN 上传下载、Mesh 节点等信息；安装到电视后不依赖电脑或额外服务器。
-
-This is a local-first Android TV dashboard for monitoring home Wi-Fi device traffic on Xiaomi/MiWiFi-compatible routers. The TV app talks directly to the router, so no companion computer is required after installation.
 
 ## 运行效果
 
@@ -34,13 +34,39 @@ This is a local-first Android TV dashboard for monitoring home Wi-Fi device traf
 - 你拥有这台路由器的管理账号和密码。
 - 你的电视、路由器和运行调试看板的设备在同一个可信任的家庭局域网内。
 - 你的路由器管理页确实能提供“当前已连接设备列表”和“设备实时上传 / 下载速率”等数据。
-- 你的路由器接口返回的数据结构和小米 / MiWiFi 系列路由器兼容；不同固件版本可能需要适配。
+- 你的路由器接口返回的数据结构和小米 / MiWiFi 系列路由器兼容；不同型号和固件版本可能需要适配。
 
 关于刷新频率：
 
 - 看板界面会按秒刷新，但最终能看到多实时的数据，取决于路由器本身多久更新一次设备速率。
 - 设备列表、Mesh 拓扑等较慢接口会做缓存，避免每秒反复请求导致路由器管理页变慢或路由器负载升高。
 - 如果数据看起来不是每秒变化，通常是路由器接口本身的数据更新间隔或负载限制，而不是电视 App 单方面能解决的问题。
+
+## AI 适配建议
+
+虽然当前版本是基于小米系路由器做的，但它也可以作为“家庭路由器电视看板”的参考项目。你可以把这个仓库交给 AI，再提供你自己家的环境信息，让 AI 帮你快速改成可用版本。
+
+适配时建议告诉 AI：
+
+- 路由器品牌、型号和固件版本。
+- 路由器管理页地址、登录方式，以及你能拿到的接口返回示例。
+- 设备列表、设备名称、IP、MAC、上传速率、下载速率在接口里的字段位置。
+- 目标电视或盒子的 Android 版本、屏幕分辨率和遥控器操作习惯。
+- 你希望保留哪些界面元素，以及希望隐藏哪些隐私信息。
+
+如果你的路由器不是小米系，通常需要重点改 `RouterClient` 里的登录、接口请求和数据解析逻辑；电视端 UI、筛选、刷新节奏等部分可以继续复用。
+
+## 技术栈说明
+
+这个仓库使用这些技术，是因为我这里做这个版本时选择了这套实现方式，不代表其他人必须使用完全相同的技术栈。
+
+- Android TV 应用：原生 Android Java。
+- 构建：Android Gradle Plugin 8.7.3，JDK 17。
+- 本地调试看板：Node.js ES Modules。
+- 测试：Node.js `node:test`，Android 单元测试。
+- 架构：电视端直接访问路由器本地接口，不依赖云服务。
+
+网友拿到这个仓库后，可以让 AI 根据自己的路由器、电视设备和开发习惯继续修改：例如改成 Kotlin、改 UI、换路由器接口、删除浏览器调试看板，或者加入更多本地统计能力。
 
 项目代码主要由 AI 辅助生成，适合学习、二次开发和家庭自用。实际使用时请根据你的路由器型号、固件版本和网络环境自行测试。
 
@@ -51,7 +77,8 @@ android-tv/       Android TV 应用源码
 web-dashboard/    可选的 Node.js 浏览器看板和解析测试
 docs/images/      README 使用的演示图片
 LICENSE           MIT 许可证
-README.md         中英双语说明文档
+README.md         中文主入口
+README.en.md      English README
 ```
 
 ## Android TV 应用
@@ -125,50 +152,11 @@ Android TV 应用通过电视端设置弹窗保存配置，不需要提交任何
 - 运行时读取的路由器设备列表可能包含设备名称、IP 和 MAC。公开你自己的截图或日志前，请先确认是否需要脱敏。
 - 浏览器调试看板没有内置鉴权，默认只建议绑定在 `localhost`。
 
-## English
-
-Home Wi-Fi Monitor TV is a local-first Android TV dashboard for monitoring device traffic on Xiaomi/MiWiFi-compatible routers.
-
-Highlights:
-
-- Designed for landscape Android TV screens and remote-control navigation.
-- Refreshes the dashboard every second while caching slower router calls.
-- Shows WAN upload/download, online device count, active device count, Mesh nodes, and per-device speed rows.
-- Stores router settings only on the TV device.
-- Includes an optional Node.js browser dashboard for local development and parser testing.
-
-Requirements and limitations:
-
-- This project targets Xiaomi/MiWiFi-style local router management APIs. It is not a universal router monitoring protocol.
-- You must own the router admin credentials.
-- The router must expose connected-device and per-device bandwidth data through its local management interface.
-- Actual data freshness depends on the router firmware. The UI can refresh every second, but some router values may only update at a slower interval.
-- Slower endpoints are cached to avoid unnecessary router load.
-- The code was mainly AI-assisted and may need adaptation for your router model, firmware version, or home network.
-
-Build the Android TV app:
-
-```bash
-cd android-tv
-gradle assembleDebug
-```
-
-Run the optional browser dashboard:
-
-```bash
-cd web-dashboard
-npm test
-cp .env.example .env
-npm start
-```
-
-Keep this project on a trusted home network. Before publishing your own runtime logs or screenshots, decide whether you need to remove device names, local addresses, MAC addresses, and router identifiers.
-
-## 许可证 / License
+## 许可证
 
 MIT
 
-## 技术交流 / Contact
+## 技术交流
 
 如果你对 Android TV、家庭网络监控、小米路由器本地接口或这个项目的二次开发感兴趣，可以扫码添加微信做技术交流。
 
