@@ -1,0 +1,11 @@
+{
+  "name": "home-wifi-monitor",
+  "version": "0.1.0",
+  "description": "Local Wi-Fi device traffic monitor for Android TV and browser dashboards.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test/*.test.mjs"
+  }
+}

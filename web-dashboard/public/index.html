@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>家庭 Wi-Fi 实时设备</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>家庭 Wi-Fi 实时设备</h1>
+          <p id="subtitle">连接小米路由器中...</p>
+        </div>
+        <div class="status-card" aria-live="polite">
+          <span class="pulse" id="pulse"></span>
+          <div>
+            <strong id="statusText">连接中</strong>
+            <small id="sampledAt">--</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="metrics" aria-label="网络总览">
+        <article class="metric">
+          <span>WAN 下载</span>
+          <strong id="wanDown">--</strong>
+          <small id="wanPeak">历史峰值 --</small>
+        </article>
+        <article class="metric">
+          <span>WAN 上传</span>
+          <strong id="wanUp">--</strong>
+          <small id="wanUpPeak">历史峰值 --</small>
+        </article>
+        <article class="metric">
+          <span>在线设备</span>
+          <strong id="onlineCount">--</strong>
+          <small id="activeCount">活跃 --</small>
+        </article>
+        <article class="metric">
+          <span>Mesh 节点</span>
+          <strong id="meshCount">--</strong>
+          <small id="routerName">--</small>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="设备筛选">
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-filter="all" type="button">全部</button>
+          <button class="tab" data-filter="active" type="button">正在用网</button>
+          <button class="tab" data-filter="heavy" type="button">高流量</button>
+          <button class="tab" data-filter="mesh" type="button">Mesh 节点</button>
+        </div>
+        <label class="search">
+          <span>搜索</span>
+          <input id="searchInput" type="search" placeholder="设备名 / IP / MAC">
+        </label>
+      </section>
+
+      <section class="table-wrap" aria-label="设备实时速率列表">
+        <table>
+          <thead>
+            <tr>
+              <th>设备</th>
+              <th>连接</th>
+              <th>下载</th>
+              <th>上传</th>
+              <th>历史峰值</th>
+              <th>IP / MAC</th>
+            </tr>
+          </thead>
+          <tbody id="deviceRows">
+            <tr>
+              <td colspan="6" class="empty">正在加载设备...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
