@@ -93,19 +93,35 @@ Requirements:
 - JDK 17
 - Gradle compatible with Android Gradle Plugin 8.7.3
 
-Debug build:
+Recommended build script:
+
+```bash
+scripts/build-apk.sh release
+```
+
+The APK will be copied to:
+
+```text
+dist/home-wifi-monitor-tv-release.apk
+```
+
+For a debug APK:
+
+```bash
+scripts/build-apk.sh debug
+```
+
+You can also run Gradle directly:
 
 ```bash
 cd android-tv
 gradle assembleDebug
-```
-
-Release build:
-
-```bash
-cd android-tv
 gradle assembleRelease
 ```
+
+If Android Studio is not installed, prepare an Android SDK and set `ANDROID_HOME` / `ANDROID_SDK_ROOT`, or create `android-tv/local.properties` with `sdk.dir=/path/to/Android/sdk`. `local.properties` is ignored by Git.
+
+The current release build uses Android's debug signing config for easy home sideloading. Replace it with your own keystore before formal distribution.
 
 On first launch, enter your router admin host and password in the settings dialog. The host can be any local hostname or address reachable from the TV on your home network.
 

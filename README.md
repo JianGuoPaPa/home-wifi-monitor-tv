@@ -95,19 +95,35 @@ README.en.md      English README
 - JDK 17
 - 与 Android Gradle Plugin 8.7.3 兼容的 Gradle
 
-调试构建：
+推荐用仓库里的脚本打包：
+
+```bash
+scripts/build-apk.sh release
+```
+
+打包完成后，APK 会输出到：
+
+```text
+dist/home-wifi-monitor-tv-release.apk
+```
+
+如果要调试包：
+
+```bash
+scripts/build-apk.sh debug
+```
+
+也可以直接进入 Android 项目执行 Gradle：
 
 ```bash
 cd android-tv
 gradle assembleDebug
-```
-
-发布构建：
-
-```bash
-cd android-tv
 gradle assembleRelease
 ```
+
+如果没有 Android Studio，需要先准备 Android SDK，并设置 `ANDROID_HOME` / `ANDROID_SDK_ROOT`，或者在 `android-tv/local.properties` 中写入 `sdk.dir=/path/to/Android/sdk`。`local.properties` 不会提交到 Git。
+
+当前仓库里的 release 构建为了方便家庭自用和电视侧载，使用 Android debug signing config 签名。正式分发前，建议换成你自己的 keystore。
 
 首次启动时，在设置弹窗中输入路由器管理地址和管理密码。路由器地址可以是电视所在家庭网络可访问的本地域名或地址。
 

@@ -12,6 +12,8 @@ debug.keystore
 # Android build output
 **/.gradle/
 **/build/
+.android-sdk/
+.gradle-home/
 *.apk
 *.aab
 
