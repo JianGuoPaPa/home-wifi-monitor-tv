@@ -1,7 +1,23 @@
 {
   "name": "home-wifi-monitor",
   "version": "0.1.0",
-  "description": "家庭 Wi-Fi 设备用网监控 Android TV 看板，附带可选浏览器调试看板。",
+  "description": "小米路由器家庭 Wi-Fi 设备用网监控面板，包含 Android TV 看板和可选浏览器调试看板。",
+  "keywords": [
+    "小米路由器",
+    "家庭wifi",
+    "家庭 Wi-Fi",
+    "监控面板",
+    "网络监控",
+    "流量监控",
+    "带宽监控",
+    "android-tv",
+    "home-wifi",
+    "wifi-monitor",
+    "router-monitor",
+    "network-dashboard",
+    "bandwidth-monitor",
+    "miwifi"
+  ],
   "license": "MIT",
   "type": "module",
   "scripts": {

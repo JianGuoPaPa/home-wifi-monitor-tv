@@ -4,6 +4,8 @@
 
 A local-first Android TV dashboard for monitoring home Wi-Fi device traffic. The current implementation talks directly to Xiaomi/MiWiFi-compatible router management APIs, reads connected devices, real-time bandwidth, WAN upload/download, and Mesh node information, and runs on the TV without a companion computer after installation.
 
+It is especially useful for people who want to see what is happening on their home network but do not run a soft router, OpenWrt box, side router, or professional gateway. If your router exposes connected-device and bandwidth data, this project can turn an Android TV into an always-on home network monitoring panel.
+
 ## Screenshots
 
 <p align="center">
@@ -22,6 +24,10 @@ A local-first Android TV dashboard for monitoring home Wi-Fi device traffic. The
 - First-launch router settings dialog; router host and admin password stay on the TV device.
 - Device filters: all devices, active devices, heavy traffic, and Mesh nodes.
 - Optional Node.js browser dashboard for local debugging and router parser testing.
+
+## Keywords
+
+Xiaomi router, MiWiFi, home Wi-Fi, home wifi, home network, network monitor, traffic monitor, bandwidth monitor, monitoring dashboard, Android TV dashboard, router monitor, LAN monitor, device bandwidth, no soft router, home network panel.
 
 ## Requirements And Limitations
 
