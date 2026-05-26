@@ -1,22 +1,54 @@
-# 家庭 Wi-Fi 电视看板
+# 家庭 Wi-Fi 电视看板：Android TV 小米路由器流量监控 APK
 
 [中文](README.md) | [English](README.en.md)
 
-一个运行在 Android TV 上的家庭 Wi-Fi 设备用网监控看板。电视端可以直接登录小米 / MiWiFi 兼容路由器，读取在线设备、实时速率、WAN 上传下载、Mesh 节点等信息；安装到电视后不依赖电脑或额外服务器。
+一个运行在 Android TV 上的家庭 Wi-Fi 设备用网监控看板。电视端可以直接登录小米 / MiWiFi 兼容路由器，读取在线设备、实时速率、WAN 上传下载、Mesh 节点等信息；安装到电视后不依赖电脑、软路由、OpenWrt、旁路由或额外服务器。
 
-适合想查看家里网络使用情况，但又没有使用软路由、OpenWrt、旁路由或专业网关的朋友。只要你的路由器本身能提供已连接设备和带宽数据，就可以把电视变成一个常驻的家庭网络监控面板。
+<p>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <img alt="Android TV" src="https://img.shields.io/badge/Android%20TV-dashboard-3ddc84">
+  <img alt="Xiaomi Router" src="https://img.shields.io/badge/Xiaomi%20Router-MiWiFi-ff6900">
+  <img alt="Local first" src="https://img.shields.io/badge/local--first-no%20cloud-111827">
+</p>
+
+适合想查看家里网络使用情况，但又没有部署专业网关的朋友。只要你的路由器本身能提供已连接设备和带宽数据，就可以把电视变成一个常驻的家庭网络监控面板。
+
+<p align="center">
+  <img src="docs/images/demo.jpg" alt="家庭 Wi-Fi 电视看板运行演示" width="760">
+</p>
+
+## 这个项目解决什么问题
+
+普通家庭网络想看“谁在用网、哪个设备占带宽、电视上能不能常驻看板”，通常会遇到两个尴尬点：要么需要软路由 / OpenWrt / 专业网关，要么只能在手机或电脑管理页里临时看一眼。
+
+这个项目的目标更简单：让 Android TV / 电视盒子直接访问家里的小米系路由器，把电视变成一个本地网络状态屏。
+
+| 能力 | 做什么 |
+| --- | --- |
+| 电视端独立运行 | 安装到 Android TV 后直接访问路由器，不依赖 Mac/PC 常驻服务 |
+| 小米 / MiWiFi 兼容 | 基于小米系路由器本地管理接口读取设备和速率数据 |
+| 遥控器友好 | 横屏大屏 UI，支持方向键、菜单键、刷新键和翻页键 |
+| 1 秒刷新 | 看板按秒刷新，慢接口加缓存，尽量减少对路由器管理页的压力 |
+| 设备筛选 | 支持全部、正在用网、高流量、Mesh 节点等筛选 |
+| 本地优先 | 不包含遥测、云同步或外部 API 调用，配置保存在电视本机 |
+| 调试看板 | 附带 Node.js 浏览器看板，方便先在电脑上验证路由器解析逻辑 |
 
 ## 运行效果
 
 以下为实际运行照片。
 
 <p align="center">
-  <img src="docs/images/demo.jpg" alt="家庭 Wi-Fi 电视看板运行演示" width="760">
-</p>
-
-<p align="center">
   <img src="docs/images/router-settings.jpg" alt="路由器设置界面" width="520">
 </p>
+
+## 和常见方案有什么不同
+
+| 方案 | 特点 | 这个项目的差异 |
+| --- | --- | --- |
+| 路由器 App / 管理页 | 临时查看方便，但不适合电视常驻 | 电视横屏大屏展示，适合作为家庭网络状态屏 |
+| 软路由 / OpenWrt | 能力强，但门槛高、改造成本高 | 面向普通小米系路由器用户，不要求改网络架构 |
+| 电脑端监控脚本 | 开发方便，但需要电脑常开 | APK 安装到电视后独立运行 |
+| 通用 SNMP / Prometheus | 专业、可扩展，但普通家用路由不一定支持 | 直接适配路由器本地管理接口，更贴近家用场景 |
 
 ## 主要功能
 
@@ -29,7 +61,7 @@
 
 ## 关键词
 
-小米路由器、MiWiFi、家庭 Wi-Fi、家庭wifi、家庭网络、网络监控、流量监控、带宽监控、监控面板、电视看板、Android TV、设备用网、局域网监控、无软路由、软路由替代参考。
+小米路由器、MiWiFi、家庭 Wi-Fi、家庭wifi、家庭网络、网络监控、流量监控、带宽监控、监控面板、电视看板、Android TV、Android TV APK、设备用网、局域网监控、无软路由、软路由替代参考、home wifi monitor、router monitor、bandwidth monitor。
 
 ## 适用前提与限制
 
@@ -88,6 +120,26 @@ README.en.md      English README
 ```
 
 ## Android TV 应用
+
+### 快速开始
+
+```bash
+git clone https://github.com/JianGuoPaPa/home-wifi-monitor-tv.git
+cd home-wifi-monitor-tv
+scripts/build-apk.sh release
+```
+
+然后把生成的 APK 安装到 Android TV / 电视盒子：
+
+```text
+dist/home-wifi-monitor-tv-release.apk
+```
+
+如果你已经打开电视的 ADB 调试，也可以用：
+
+```bash
+adb install -r dist/home-wifi-monitor-tv-release.apk
+```
 
 环境要求：
 
@@ -163,6 +215,19 @@ npm start
 - `SNAPSHOT_TTL_MS`：浏览器看板快照短缓存时间
 
 Android TV 应用通过电视端设置弹窗保存配置，不需要提交任何本地配置文件。
+
+## 常见改造方向
+
+- 适配其他品牌路由器：替换 `RouterClient` 的登录、请求和响应解析。
+- 改成 Kotlin / Compose：保留数据模型和刷新节奏，重写 UI 层。
+- 增加更多统计：例如按设备累计流量、历史速率曲线、异常设备提醒。
+- 增加更多电视交互：例如遥控器快捷键、屏保模式、常驻低亮度模式。
+- 增加隐私模式：隐藏设备 MAC、内网 IP 或自定义设备名称。
+- 增加局域网只读 API：让其他设备读取电视端或调试看板的快照数据。
+
+## 发布与推广
+
+如果你基于本项目发布自己的版本，可以参考 [Release and Promotion Checklist](./docs/RELEASE_AND_PROMOTION.md)。里面包含 Release 文案、GitHub Topics、外部分发短文案和后续优化清单。
 
 ## 隐私与安全
 

@@ -1,20 +1,52 @@
-# Home Wi-Fi Monitor TV
+# Home Wi-Fi Monitor TV: Android TV Xiaomi Router Bandwidth Monitor APK
 
 [中文](README.md) | [English](README.en.md)
 
-A local-first Android TV dashboard for monitoring home Wi-Fi device traffic. The current implementation talks directly to Xiaomi/MiWiFi-compatible router management APIs, reads connected devices, real-time bandwidth, WAN upload/download, and Mesh node information, and runs on the TV without a companion computer after installation.
+A local-first Android TV dashboard for monitoring home Wi-Fi device traffic. The current implementation talks directly to Xiaomi/MiWiFi-compatible router management APIs, reads connected devices, real-time bandwidth, WAN upload/download, and Mesh node information, and runs on the TV without a companion computer, soft router, OpenWrt box, side router, or extra server after installation.
 
-It is especially useful for people who want to see what is happening on their home network but do not run a soft router, OpenWrt box, side router, or professional gateway. If your router exposes connected-device and bandwidth data, this project can turn an Android TV into an always-on home network monitoring panel.
+<p>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <img alt="Android TV" src="https://img.shields.io/badge/Android%20TV-dashboard-3ddc84">
+  <img alt="Xiaomi Router" src="https://img.shields.io/badge/Xiaomi%20Router-MiWiFi-ff6900">
+  <img alt="Local first" src="https://img.shields.io/badge/local--first-no%20cloud-111827">
+</p>
 
-## Screenshots
+It is especially useful for people who want to see what is happening on their home network but do not run a professional gateway. If your router exposes connected-device and bandwidth data, this project can turn an Android TV into an always-on home network monitoring panel.
 
 <p align="center">
   <img src="docs/images/demo.jpg" alt="Home Wi-Fi Monitor TV demo" width="760">
 </p>
 
+## What Problem Does This Solve?
+
+For a normal home network, it is surprisingly awkward to answer simple questions like "who is using bandwidth right now" or "can I keep a network dashboard on the TV". Router apps and admin pages are temporary, while soft-router or Prometheus-style setups are overkill for many homes.
+
+This project takes a simpler path: let an Android TV or TV box call the local Xiaomi-style router API directly and act as a home network status screen.
+
+| Capability | What it does |
+| --- | --- |
+| Standalone TV app | Runs on Android TV after installation; no Mac/PC service needs to stay online |
+| Xiaomi / MiWiFi compatible | Reads device and speed data from Xiaomi-style local router APIs |
+| Remote-control friendly | Landscape TV UI with D-pad, menu, refresh, and page key support |
+| One-second refresh | Dashboard refreshes every second, with caching for slower router endpoints |
+| Device filters | Filter all devices, active devices, heavy traffic, and Mesh nodes |
+| Local first | No telemetry, cloud sync, or external API calls; config stays on the TV |
+| Debug dashboard | Optional Node.js browser dashboard for router parser testing before TV deployment |
+
+## Screenshots
+
 <p align="center">
   <img src="docs/images/router-settings.jpg" alt="Router settings screen" width="520">
 </p>
+
+## How Is It Different?
+
+| Option | Typical tradeoff | This project |
+| --- | --- | --- |
+| Router app / admin page | Easy for quick checks, poor for always-on TV display | A landscape TV dashboard designed for always-on viewing |
+| Soft router / OpenWrt | Powerful but higher setup cost | Targets ordinary Xiaomi-style home routers |
+| Computer-side monitor script | Easy to develop, but needs a computer to stay on | APK runs directly on the TV |
+| SNMP / Prometheus stack | Professional and extensible, not always available on consumer routers | Uses local router management APIs that home routers already expose |
 
 ## Features
 
@@ -27,7 +59,7 @@ It is especially useful for people who want to see what is happening on their ho
 
 ## Keywords
 
-Xiaomi router, MiWiFi, home Wi-Fi, home wifi, home network, network monitor, traffic monitor, bandwidth monitor, monitoring dashboard, Android TV dashboard, router monitor, LAN monitor, device bandwidth, no soft router, home network panel.
+Xiaomi router, MiWiFi, home Wi-Fi, home wifi, home network, network monitor, traffic monitor, bandwidth monitor, monitoring dashboard, Android TV dashboard, Android TV APK, router monitor, LAN monitor, device bandwidth, no soft router, home network panel.
 
 ## Requirements And Limitations
 
@@ -86,6 +118,26 @@ README.en.md      English README
 ```
 
 ## Android TV App
+
+### Quick Start
+
+```bash
+git clone https://github.com/JianGuoPaPa/home-wifi-monitor-tv.git
+cd home-wifi-monitor-tv
+scripts/build-apk.sh release
+```
+
+Then install the generated APK on your Android TV or TV box:
+
+```text
+dist/home-wifi-monitor-tv-release.apk
+```
+
+If ADB debugging is enabled on the TV:
+
+```bash
+adb install -r dist/home-wifi-monitor-tv-release.apk
+```
 
 Requirements:
 
@@ -161,6 +213,19 @@ By default it only binds to `localhost`. If you expose it to other devices on yo
 - `SNAPSHOT_TTL_MS`: short snapshot cache window
 
 The Android TV app stores configuration through the on-TV settings dialog instead of a committed config file.
+
+## Common Adaptation Ideas
+
+- Adapt another router brand by replacing `RouterClient` login, requests, and response parsing.
+- Rewrite the TV UI in Kotlin or Compose while keeping the data model and refresh cadence.
+- Add more statistics such as accumulated traffic, history charts, or abnormal-device alerts.
+- Add more TV interactions such as remote shortcuts, screensaver mode, or low-brightness always-on mode.
+- Add privacy mode to hide MAC addresses, local IPs, or custom device names.
+- Add a LAN-only read API so other devices can consume the dashboard snapshot.
+
+## Release And Promotion
+
+If you publish your own version based on this project, see [Release and Promotion Checklist](./docs/RELEASE_AND_PROMOTION.md) for release notes, GitHub topics, short external posts, and follow-up improvements.
 
 ## Privacy And Security
 

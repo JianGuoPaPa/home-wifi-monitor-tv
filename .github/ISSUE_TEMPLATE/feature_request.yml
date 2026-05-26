@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest a router adaptation, dashboard improvement, or Android TV feature.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What home-network or TV-dashboard workflow are you trying to improve?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+      description: What would you like this project to support?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Router adaptation
+        - Android TV UI
+        - Remote-control navigation
+        - Statistics / charts
+        - Privacy mode
+        - Browser dashboard
+        - Build / release
+        - Documentation
+        - Other
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional context
+      description: Router models, screenshots, sample redacted API responses, or related projects are helpful.

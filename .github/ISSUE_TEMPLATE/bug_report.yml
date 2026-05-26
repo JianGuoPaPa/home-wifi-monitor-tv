@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a reproducible problem with the Android TV app, router parsing, APK build, or browser dashboard.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please do not paste router passwords, public IPs, MAC addresses, private device names, or full LAN screenshots without redaction.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected to happen.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Android TV app
+        - Router login / RouterClient
+        - Device speed parsing
+        - Mesh / WAN data
+        - Remote-control navigation
+        - Browser dashboard
+        - APK build / install
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: router
+    attributes:
+      label: Router model and firmware
+      placeholder: "Xiaomi AX6000 / MiWiFi firmware version ..."
+  - type: input
+    id: tv
+    attributes:
+      label: TV / Android box model
+      placeholder: "Android TV version, resolution, device model"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Redact private data before posting.
+      render: text
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
